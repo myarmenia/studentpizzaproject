@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 export const data = [
   {
     imageUrl:
@@ -102,16 +102,15 @@ export const data = [
   },
 ];
 
-
 export const users = [
-  { email: 'user1@example.com', password: bcrypt.hashSync('password1', 10) },
-  { email: 'user2@example.com', password: bcrypt.hashSync('password2', 10) },
-  { email: 'user3@example.com', password: bcrypt.hashSync('password3', 10) },
-  { email: 'user4@example.com', password: bcrypt.hashSync('password4', 10) },
-  { email: 'user5@example.com', password: bcrypt.hashSync('password5', 10) },
-  { email: 'user6@example.com', password: bcrypt.hashSync('password6', 10) },
-  { email: 'user7@example.com', password: bcrypt.hashSync('password7', 10) },
-  { email: 'user8@example.com', password: bcrypt.hashSync('password8', 10) },
-  { email: 'user9@example.com', password: bcrypt.hashSync('password9', 10) },
-  { email: 'user10@example.com', password: bcrypt.hashSync('password10', 10) },
+  { email: "user1@example.com", password: bcrypt.hashSync("password1", 10) },
+  { email: "user2@example.com", password: bcrypt.hashSync("password2", 10) },
+  { email: "user3@example.com", password: bcrypt.hashSync("password3", 10) },
+  { email: "user4@example.com", password: bcrypt.hashSync("password4", 10) },
+  { email: "user5@example.com", password: bcrypt.hashSync("password5", 10) },
+  { email: "user6@example.com", password: bcrypt.hashSync("password6", 10) },
+  { email: "user7@example.com", password: bcrypt.hashSync("password7", 10) },
+  { email: "user8@example.com", password: bcrypt.hashSync("password8", 10) },
+  { email: "user9@example.com", password: bcrypt.hashSync("password9", 10) },
+  { email: "user10@example.com", password: bcrypt.hashSync("password10", 10) },
 ];

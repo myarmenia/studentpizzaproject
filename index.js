@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors"
+import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import connection from "./Utils/Connection.js";
@@ -14,20 +14,20 @@ import authRouter from "./Router/AuthRouter.js";
 
 const app = express();
 dotenv.config();
-connection()
+connection();
 
-app.use(credentials)
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(cookieParser())
+app.use(credentials);
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // query
-app.use("/api/seed", seedRouter)
-app.use("/api/pizzas", pizzaRouter)
-app.use("/api/cart", cartRouter)
-app.use("/api/user", authRouter)
+app.use("/api/seed", seedRouter);
+app.use("/api/pizzas", pizzaRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/user", authRouter);
 
 app.listen(process.env.PORT, () => {
-    console.log(`SERVER RUNING ON PORT ${process.env.PORT}`);
-})
+  console.log(`SERVER RUNING ON PORT ${process.env.PORT}`);
+});

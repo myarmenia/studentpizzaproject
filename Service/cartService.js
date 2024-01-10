@@ -3,7 +3,7 @@ import Pizza from "../Model/PizzaModel.js";
 
 const cartService = {
   getAll: async () => {
-    const cart = await Cart.find().populate("pizzaId")
+    const cart = await Cart.find().populate("pizzaId");
     if (cart) {
       if (cart.length !== 0) {
         return cart;
@@ -61,16 +61,16 @@ const cartService = {
 
   deleteOne: async (pizzaId) => {
     if (pizzaId) {
-      const deleteOne = await Cart.findOneAndDelete({ pizzaId: pizzaId })
+      const deleteOne = await Cart.findOneAndDelete({ pizzaId: pizzaId });
       return { message: `Item With _ID ${pizzaId} Removed` };
     } else {
-      return { message: ` Item Whit _ID:${pizzaId} Was Not Found ` }
+      return { message: ` Item Whit _ID:${pizzaId} Was Not Found ` };
     }
   },
 
   deleteAll: async () => {
-    const deleteAll = await Cart.deleteMany({})
-    return { message: "Cart Has Been Cleared" }
-  }
+    const deleteAll = await Cart.deleteMany({});
+    return { message: "Cart Has Been Cleared" };
+  },
 };
 export default cartService;

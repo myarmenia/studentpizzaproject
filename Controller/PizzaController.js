@@ -6,7 +6,7 @@ const pizzaController = {
       const { sort, type, filter } = req.query;
 
       const pizzas = await pizzaService.getAll(sort, type, filter);
-      
+
       res.status(200).send(pizzas);
     } catch (error) {
       console.error(error);

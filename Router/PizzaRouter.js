@@ -1,7 +1,7 @@
-import { Router } from "express"
-import pizzaController from "../Controller/PizzaController.js"
-const pizzaRouter = Router()
+import { Router } from "express";
+import pizzaController from "../Controller/PizzaController.js";
+const pizzaRouter = Router();
 
-pizzaRouter.get("/", pizzaController.getAll)
+pizzaRouter.get("/", pizzaController.getAll);
 
-export default pizzaRouter
+export default pizzaRouter;
