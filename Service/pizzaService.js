@@ -35,7 +35,6 @@ const pizzaService = {
         }
       }
     } else {
-      // Filter With Catergory
       if (filter) {
         console.log("filter");
         return pizzas.filter((pizza) => pizza.category === parseInt(filter));
