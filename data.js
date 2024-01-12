@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+
 export const data = [
   {
     imageUrl:
