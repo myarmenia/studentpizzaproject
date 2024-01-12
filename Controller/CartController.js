@@ -20,17 +20,16 @@ const cartController = {
     }
   },
 
-  // changeCount: async (req, res) => {
-  //   try {
-  //     const { pizzaId } = req.body;
-  //     const { type } = req.query;
-  //     const changeCount = await cartService.changeCount(pizzaId, type);
-  //     res.status(200).send(changeCount);
-  //   } catch (error) {
-  //     console.error(error);
-  //     res.status(500).send({ CriticalError: " Internal Server Error " });
-  //   }
-  // },
+  changeCount: async (req, res) => {
+    try {
+      const { _id, count} = req.body;
+      const changeCount = await cartService.changeCount(_id, count);
+      res.status(200).send(changeCount);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ CriticalError: " Internal Server Error " });
+    }
+  },
 
   deleteOne: async (req, res) => {
     try {

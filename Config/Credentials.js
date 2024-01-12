@@ -2,7 +2,6 @@ import allowedOrigins from "./AllowedOrigins.js";
 
 const credentials = (req, res, next) => {
   const origin = req?.headers?.origin;
-  console.log(req.headers.referer);
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Credentials", "true");
   }

@@ -5,7 +5,6 @@ const pizzaService = {
     const pizzas = await Pizza.find();
 
     if (sort) {
-      console.log("sort");
       if (sort === "price") {
         if (type) {
           if (type === "asc") {
@@ -36,7 +35,6 @@ const pizzaService = {
       }
     } else {
       if (filter) {
-        console.log("filter");
         return pizzas.filter((pizza) => pizza.category === parseInt(filter));
       }
     }

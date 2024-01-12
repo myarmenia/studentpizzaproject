@@ -6,6 +6,8 @@ cartRouter.get("/", cartController.getAll);
 
 cartRouter.post("/add", cartController.addToCart);
 
+cartRouter.put("/changeCount", cartController.changeCount)
+
 cartRouter.delete("/deleteOne", cartController.deleteOne);
 
 cartRouter.delete("/deletePizza", cartController.deletePizza);

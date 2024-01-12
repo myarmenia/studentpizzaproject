@@ -61,24 +61,11 @@ const cartService = {
     }
   },
 
-  // changeCount: async (pizzaId, type) => {
-  //   const cart = await Cart.findOne({ pizzaId: pizzaId });
-  //   console.log(cart);
-  //   if (type === "add") {
-  //     cart.count = cart.count + 1;
-  //   }
-
-  //   if (type === "decrement") {
-  //     if (cart.count > 1) {
-  //       cart.count = cart.count - 1;
-  //     } else if (cart.count <= 1) {
-  //       return {
-  //         message: "Вы не можете удалить пиццу потому что в корзине 1 товар",
-  //       };
-  //     }
-  //   }
-  //   await cart.save();
-  // },
+  changeCount: async (id, count) => {
+    const cartItem = await CartItem.findById(id)
+    cartItem.count = count
+    await cartItem.save()
+  },
 
   deleteOne: async (id) => {
     if (id) {
@@ -111,5 +98,4 @@ const cartService = {
     return { message: "Cart Has Been Cleared" };
   },
 };
-//dfghjk
 export default cartService;
