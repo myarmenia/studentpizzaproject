@@ -11,8 +11,8 @@ const cartController = {
   },
   addToCart: async (req, res) => {
     try {
-      const { pizzaId } = req.body;
-      const addToCart = await cartService.addToCart(pizzaId);
+      const { pizzaId, type, size } = req.body;
+      const addToCart = await cartService.addToCart(pizzaId, type, size);
       res.status(201).send(addToCart);
     } catch (error) {
       console.error(error);
@@ -20,21 +20,33 @@ const cartController = {
     }
   },
 
-  changeCount: async (req, res) => {
-    try {
-      const { pizzaId } = req.body;
-      const { type } = req.query;
-      const changeCount = await cartService.changeCount(pizzaId, type);
-      res.status(200).send(changeCount);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ CriticalError: " Internal Server Error " });
-    }
-  },
+  // changeCount: async (req, res) => {
+  //   try {
+  //     const { pizzaId } = req.body;
+  //     const { type } = req.query;
+  //     const changeCount = await cartService.changeCount(pizzaId, type);
+  //     res.status(200).send(changeCount);
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).send({ CriticalError: " Internal Server Error " });
+  //   }
+  // },
+
   deleteOne: async (req, res) => {
     try {
-      const { pizzaId } = req.body;
-      const deletePizza = await cartService.deleteOne(pizzaId);
+      const { _id } = req.body;
+      const deleteOne = await cartService.deleteOne(_id);
+      res.json(deleteOne);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ CriticalError: "Internal Server Error" });
+    }
+  },
+
+  deletePizza: async (req, res) => {
+    try {
+      const { _id } = req.body;
+      const deletePizza = await cartService.deleteOne(_id);
       res.status(201).send(deletePizza);
     } catch (error) {
       console.error(error);

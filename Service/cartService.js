@@ -1,9 +1,10 @@
 import Cart from "../Model/CartModel.js";
 import Pizza from "../Model/PizzaModel.js";
+import CartItem from "../Model/carItemModel.js";
 
 const cartService = {
   getAll: async () => {
-    const cart = await Cart.find().populate("pizzaId");
+    const cart = await Cart.find().populate(["pizzaId", "subCategory"]);
     if (cart) {
       if (cart.length !== 0) {
         return cart;
@@ -18,53 +19,90 @@ const cartService = {
       return { message: "Cart Is Not Found" };
     }
   },
-  addToCart: async (pizzaId) => {
-    const pizza = await Pizza.findById(pizzaId);
-    const cart = await Cart.findOne({ pizzaId: pizzaId });
 
-    if (pizza && !cart) {
-      const newItem = new Cart({
-        pizzaId: pizza._id,
-      }).save();
+  addToCart: async (pizzaId, type, size) => {
+    const [pizza, cart] = await Promise.all([
+      Pizza.findById(pizzaId),
+      Cart.findOne({ pizzaId: pizzaId }),
+    ]);
+    if (pizza) {
+      if (!cart) {
+        const newCart = new Cart({
+          pizzaId,
+          totalPrice: pizza.price,
+        });
+        const newCartItem = new CartItem({
+          type,
+          size,
+        });
+        newCart.subCategory.push(newCartItem._id);
 
-      if (!newItem) {
-        return { message: `${pizza.title} не удалось добавить в корзину` };
+        await Promise.all([newCart.save(), newCartItem.save()]);
+      } else {
+        const itemExist = await CartItem.findOne({
+          type: { $eq: type },
+          size: { $eq: size },
+        });
+        if (itemExist) {
+          itemExist.count = itemExist.count + 1;
+          cart.totalPrice = cart.totalPrice + pizza.price;
+          await Promise.all([itemExist.save(), cart.save()]);
+        } else {
+          const newCartItem = new CartItem({
+            type,
+            size,
+          });
+          cart.subCategory.push(newCartItem._id);
+          cart.count = cart.count + 1;
+          cart.totalPrice = cart.totalPrice + pizza.price;
+          await Promise.all([newCartItem.save(), cart.save()]);
+        }
       }
-      return { message: `${pizza.title} добавлен в корзину` };
-    } else {
-      console.log("++++++++");
-      cart.count = cart.count + 1;
-      console.log(cart);
-      await cart.save();
-      return { message: `${pizza.title} добавлен в корзину` };
     }
   },
 
-  changeCount: async (pizzaId, type) => {
-    const cart = await Cart.findOne({ pizzaId: pizzaId });
-    console.log(cart);
-    if (type === "add") {
-      cart.count = cart.count + 1;
-    }
+  // changeCount: async (pizzaId, type) => {
+  //   const cart = await Cart.findOne({ pizzaId: pizzaId });
+  //   console.log(cart);
+  //   if (type === "add") {
+  //     cart.count = cart.count + 1;
+  //   }
 
-    if (type === "decrement") {
-      if (cart.count > 1) {
-        cart.count = cart.count - 1;
-      } else if (cart.count <= 1) {
-        return {
-          message: "Вы не можете удалить пиццу потому что в корзине 1 товар",
-        };
+  //   if (type === "decrement") {
+  //     if (cart.count > 1) {
+  //       cart.count = cart.count - 1;
+  //     } else if (cart.count <= 1) {
+  //       return {
+  //         message: "Вы не можете удалить пиццу потому что в корзине 1 товар",
+  //       };
+  //     }
+  //   }
+  //   await cart.save();
+  // },
+
+  deleteOne: async (id) => {
+    if (id) {
+      const [deleteOne, deleteSub] = await Promise.all([
+        CartItem.findByIdAndDelete(id),
+        Cart.findOne({ subCategory: id }),
+      ]);
+
+      if (deleteSub) {
+        deleteSub.subCategory.pull(id);
+        await deleteSub.save();
       }
+      return { Message: `Item Has Been Deleted` };
+    } else {
+      return { Message: `Something Went Wrong ` };
     }
-    await cart.save();
   },
 
-  deleteOne: async (pizzaId) => {
-    if (pizzaId) {
-      const deleteOne = await Cart.findOneAndDelete({ pizzaId: pizzaId });
-      return { message: `Item With _ID ${pizzaId} Removed` };
+  deletePizza: async (id) => {
+    if (id) {
+      const deleteOne = await Cart.findByIdAndDelete(id);
+      return { message: `Item With _ID ${id} Removed` };
     } else {
-      return { message: ` Item Whit _ID:${pizzaId} Was Not Found ` };
+      return { message: ` Item Whit _ID:${id} Was Not Found ` };
     }
   },
 

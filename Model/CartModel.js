@@ -7,6 +7,16 @@ const cartSchema = new mongoose.Schema(
       ref: "Pizza",
       required: true,
     },
+    subCategory: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CartItem",
+      }
+    ],
+    totalPrice: {
+      type: Number, 
+      required:true
+    },
     count: { type: Number, default: 1 },
   },
   {
