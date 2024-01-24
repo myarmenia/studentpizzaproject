@@ -1,4 +1,4 @@
-import pizzaService from "../Service/pizzaService.js";
+import pizzaService from "../Service/PizzaService.js";
 
 const pizzaController = {
   getAll: async (req, res) => {

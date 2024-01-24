@@ -1,6 +1,6 @@
 import Cart from "../Model/CartModel.js";
 import Pizza from "../Model/PizzaModel.js";
-import CartItem from "../Model/carItemModel.js";
+import CartItem from "../Model/CarItemModel.js";
 
 const cartService = {
   getAll: async () => {
@@ -62,9 +62,9 @@ const cartService = {
   },
 
   changeCount: async (id, count) => {
-    const cartItem = await CartItem.findById(id)
-    cartItem.count = count
-    await cartItem.save()
+    const cartItem = await CartItem.findById(id);
+    cartItem.count = count;
+    await cartItem.save();
   },
 
   deleteOne: async (id) => {

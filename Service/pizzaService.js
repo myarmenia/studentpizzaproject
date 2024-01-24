@@ -2,6 +2,7 @@ import Pizza from "../Model/PizzaModel.js";
 
 const pizzaService = {
   getAll: async (sort, type, filter) => {
+    console.log("a");
     const pizzas = await Pizza.find();
 
     if (sort) {
