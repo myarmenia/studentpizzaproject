@@ -3,9 +3,9 @@ import pizzaService from "../Service/PizzaService.js";
 const pizzaController = {
   getAll: async (req, res) => {
     try {
-      const { sort, type, filter } = req.query;
+      const { sort, order, filter } = req.query;
 
-      const pizzas = await pizzaService.getAll(sort, type, filter);
+      const pizzas = await pizzaService.getAll(sort, order, filter);
 
       res.status(200).send(pizzas);
     } catch (error) {
