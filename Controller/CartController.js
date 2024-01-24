@@ -1,4 +1,4 @@
-import cartService from "../Service/cartService.js";
+import cartService from "../Service/CartService.js";
 const cartController = {
   getAll: async (req, res) => {
     try {
@@ -22,7 +22,7 @@ const cartController = {
 
   changeCount: async (req, res) => {
     try {
-      const { _id, count} = req.body;
+      const { _id, count } = req.body;
       const changeCount = await cartService.changeCount(_id, count);
       res.status(200).send(changeCount);
     } catch (error) {
