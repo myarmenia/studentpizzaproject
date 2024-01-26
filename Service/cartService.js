@@ -73,7 +73,6 @@ const cartService = {
         CartItem.findByIdAndDelete(id),
         Cart.findOne({ subCategory: id }),
       ]);
-
       if (deleteSub) {
         deleteSub.subCategory.pull(id);
         await deleteSub.save();
@@ -87,6 +86,7 @@ const cartService = {
   deletePizza: async (id) => {
     if (id) {
       const deleteOne = await Cart.findByIdAndDelete(id);
+      console.log(deleteOne);
       return { message: `Item With _ID ${id} Removed` };
     } else {
       return { message: ` Item Whit _ID:${id} Was Not Found ` };

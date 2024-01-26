@@ -34,6 +34,7 @@ const cartController = {
   deleteOne: async (req, res) => {
     try {
       const { _id } = req.body;
+      console.log(_id);
       const deleteOne = await cartService.deleteOne(_id);
       res.json(deleteOne);
     } catch (error) {
@@ -45,7 +46,8 @@ const cartController = {
   deletePizza: async (req, res) => {
     try {
       const { _id } = req.body;
-      const deletePizza = await cartService.deleteOne(_id);
+      console.log(_id);
+      const deletePizza = await cartService.deletePizza(_id);
       res.status(201).send(deletePizza);
     } catch (error) {
       console.error(error);
@@ -55,6 +57,7 @@ const cartController = {
 
   deleteAll: async (req, res) => {
     try {
+      console.log("alll");
       const deleteAll = await cartService.deleteAll();
       res.status(201).send(deleteAll);
     } catch (error) {

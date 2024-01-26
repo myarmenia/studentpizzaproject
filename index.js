@@ -11,6 +11,8 @@ import seedRouter from "./Router/seedRouter.js";
 import pizzaRouter from "./Router/PizzaRouter.js";
 import cartRouter from "./Router/CartRouter.js";
 import authRouter from "./Router/AuthRouter.js";
+import swaggerUI from "swagger-ui-express";
+import { specs } from "./Utils/Swagger/Swagger.js";
 
 const app = express();
 dotenv.config();
@@ -22,7 +24,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// query
+app.use(
+  "/swagger",
+  swaggerUI.serve,
+  swaggerUI.setup(specs, { explorer: true })
+);
+
 app.use("/api/seed", seedRouter);
 app.use("/api/pizzas", pizzaRouter);
 app.use("/api/cart", cartRouter);
