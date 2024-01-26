@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(
-  "/swagger",
+  "/api/swagger",
   swaggerUI.serve,
   swaggerUI.setup(specs, { explorer: true })
 );
