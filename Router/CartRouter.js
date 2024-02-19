@@ -5,8 +5,8 @@ const cartRouter = Router();
 /**
  * @swagger
  * tags:
- *  name: Pizza
- *  description: Pizzas managing APIs
+ *  name: Cart
+ *  description: Cart managing APIs
  */
 
 /**

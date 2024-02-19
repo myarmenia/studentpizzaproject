@@ -1,4 +1,6 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import { configDotenv } from "dotenv";
+const dotenv = configDotenv();
 
 export const options = {
   explorer: true,
@@ -9,7 +11,10 @@ export const options = {
       version: "1.0.0",
       description: "Students Projects: Pizza Store APIs",
     },
-    servers: [{ url: "http://195.181.242.194" }],
+    servers: [
+      { url: "http://pizza.trigger.ltd" },
+      { url: "http://195.181.242.194" },
+    ],
     components: {
       request: {
         AddToCart: {
