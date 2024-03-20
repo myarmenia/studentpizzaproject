@@ -53,7 +53,7 @@ const cartService = {
             size,
           });
           cart.subCategory.push(newCartItem._id);
-          cart.count = cart.count + 1;
+          cart.totalCount = cart.count + 1;
           cart.totalPrice = cart.totalPrice + pizza.price;
           await Promise.all([newCartItem.save(), cart.save()]);
         }
@@ -85,9 +85,23 @@ const cartService = {
 
   deletePizza: async (id) => {
     if (id) {
-      const deleteOne = await Cart.findByIdAndDelete(id);
-      console.log(deleteOne);
-      return { message: `Item With _ID ${id} Removed` };
+
+      const [pizzaItem, cartItem] = await Promise.all([Cart.findById(id), CartItem.find()])
+
+      if(pizzaItem){
+        pizzaItem.subCategory.map(async (e)=>{
+          await CartItem.findByIdAndDelete(e)
+        })
+
+        await Cart.findByIdAndDelete(id)
+
+        return { message: `Item With _ID ${id} Removed` };
+
+      }else {
+        return { mesage: `Pizza With _ID:${id} Not Found` };
+      }
+  
+      
     } else {
       return { message: ` Item Whit _ID:${id} Was Not Found ` };
     }

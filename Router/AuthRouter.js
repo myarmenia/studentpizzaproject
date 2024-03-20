@@ -7,6 +7,9 @@ authRouter.get("/get", (req, res) => {
   // console.log(token);
 });
 
-authRouter.post("/login", AuthController.login);
+authRouter.post("/signUp", AuthController.signUp);
+authRouter.post("/signIn", AuthController.signIn);
+authRouter.post("/refresh", AuthController.refresh);
+authRouter.post("/signOut", AuthController.signOut);
 
 export default authRouter;

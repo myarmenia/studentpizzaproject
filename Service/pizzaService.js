@@ -2,7 +2,6 @@ import Pizza from "../Model/PizzaModel.js";
 
 const pizzaService = {
   getAll: async (sort, order, filter) => {
-    console.log("a");
     const pizzas = await Pizza.find();
 
     if (sort) {
@@ -39,7 +38,7 @@ const pizzaService = {
         return pizzas.filter((pizza) => pizza.category === parseInt(filter));
       }
     }
-
+console.log(pizzas);
     return pizzas;
   },
 };
