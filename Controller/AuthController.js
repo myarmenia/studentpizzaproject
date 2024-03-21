@@ -1,20 +1,57 @@
-import authService from "../Service/AuthService.js";
+import AuthService from "../Service/AuthService.js";
 
-const authController = {
-  login: async (req, res) => {
+const AuthController = {
+  signUp : async(req,res)=>{
     try {
-      const { email, password } = req.body;
-      const users = await authService.login(email, password);
-      res.cookie("token", users.token, {
-        httpOnly: true,
-        sameSite: "strict",
-      });
-      res.status(200).send(users);
+      const {email,password,firstname,lastname,username} = req.body
+
+      const data = await AuthService.signUp(email,password,firstname,lastname,username)
+      
+      res.status(200).send(data)
+
     } catch (error) {
-      console.error(error);
-      res.status(500).send({ CriticalError: "Internal Server Error" });
+        console.error(error)
+        res.status(500).send({message: "Internal Server Error"})
+    }
+  },
+  signIn : async(req,res)=>{
+    try {
+      const {email,password} = req.body
+
+      const data = await AuthService.signIn(email,password)
+
+      res.status(200).send(data)
+      
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({message: "Internal Server Error"})
+    }
+  },
+  refresh : async(req,res)=>{
+    try {
+      const {refresh_token} = req.body
+
+      const data = await AuthService.refresh(refresh_token)
+
+      res.status(200).send(data)
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({message: "Internal Server Error"})
+    }
+  },
+  signOut : async(req,res)=>{
+    try {
+      const {refresh_token} = req.body
+
+      const data = await AuthService.signOut(refresh_token)
+      req.headers.authorization = null
+      res.status(200).send(data)
+      
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({message: "Internal Server Error"})
     }
   },
 };
 
-export default authController;
+export default AuthController;

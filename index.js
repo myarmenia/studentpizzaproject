@@ -10,10 +10,12 @@ import corsOptions from "./Config/CorsOptions.js";
 import seedRouter from "./Router/seedRouter.js";
 import pizzaRouter from "./Router/PizzaRouter.js";
 import cartRouter from "./Router/CartRouter.js";
-import authRouter from "./Router/AuthRouter.js";
+import AuthRouter from "./Router/AuthRouter.js";
 
 import swaggerUI from "swagger-ui-express";
 import { specs } from "./Utils/Swagger/Swagger.js";
+import isAuth from "./Middleware/isAuth.js";
+
 
 const app = express();
 dotenv.config();
@@ -33,8 +35,8 @@ app.use(
 
 app.use("/api/seed", seedRouter);
 app.use("/api/pizzas", pizzaRouter);
-app.use("/api/cart", cartRouter);
-app.use("/api/user", authRouter);
+app.use("/api/cart",isAuth, cartRouter);
+app.use("/api/auth", AuthRouter)
 
 app.listen(process.env.PORT, () => {
   console.log(`SERVER RUNING ON PORT ${process.env.PORT}`);
