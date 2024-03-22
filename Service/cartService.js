@@ -5,6 +5,7 @@ import CartItem from "../Model/CarItemModel.js";
 const cartService = {
   getAll: async () => {
     const cart = await Cart.find().populate(["pizzaId", "subCategory"]);
+
     if (cart) {
       if (cart.length !== 0) {
         return cart;

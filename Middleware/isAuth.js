@@ -6,9 +6,8 @@ const isAuth = (req, res, next) => {
     if(access_token){
       const new_token = access_token.split(" ")[1]
       jwt.verify(new_token, process.env.ACCESS_TOKEN, (err,data)=>{
-        if(err) return {message: "Invalid Token"}
+        if(err) return res.status(400).send({message: "Invalid Token"})
 
-        console.log(data);
         req.user= data
 
         next()
