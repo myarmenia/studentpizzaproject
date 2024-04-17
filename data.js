@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 export const data = [
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/f035c7f46c0844069722f2bb3ee9f113_584x584.jpeg",
+      "https://s3-alpha-sig.figma.com/img/bcbd/4371/fe81d3a3ec638fb078b2122eed2d7420?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Wg4yzTpBcSZHf3rwdGzxOOMkpMRXuhmGBZSbz3Kun60Qci8ipjrER61TYSjT65U-ZOvA9oR7UDO84jfBW8MdgQtHJShO4BfNk9oNMkUFx8hKNIWx19TGepfuiSFOcLpvoj8osFA-Q3Ay7kbTuEVzBhEq3FRmKthCDGuX~-xXGXaxzFXrdV4t7bezeHPseThQEDN7g161axTsSAdHbfVzuEkkjaTNcNY1lZrG-ekBS~nL8KRLa-FjgEFsRG3Q5ciixdR~JbmWDdij8J75v1SVQkB2U9eHp0~mieU8q4Sg3zBJAjHs3LjdnJ6N6IVuAl-TSV0s-1jK69wWFfMcBwVfKg__",
     title: "Пепперони Фреш с перцем",
     types: [0, 1],
     sizes: [26, 30, 40],
@@ -13,7 +13,7 @@ export const data = [
   },
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/2ffc31bb-132c-4c99-b894-53f7107a1441.jpg",
+      "https://s3-alpha-sig.figma.com/img/2997/9ae7/4b2dd8c255833c6c0db221da6a5b3fae?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CludioUlzY8k0Vi~YQg0Y6LNRAG-Ae4aBcaWISw889bR~W4xARPykAmH9Hj8QlwkhGmnOd5Ow6VPTr3HYW9pRtyTuKVAMvcv-7kKiMRhNBBXm~C0CBNzXHyWWMBQd7PMF8uOiiYWXCv1DkeKpUxU19K4dT2gS45xj6juqE6UQx76HK-5afkFjrcZAwDTFQ-tk46VYzyBhXjFVpw~zl0bC~pPDqmalO~ebLzTKqdAtOnBNIFWpnC7WYqO-6oibLA6SNwFj-M7-ehgNppqb7GxUVsD9bhzKPobTQmb6irN92obJIa6hRTYtH7qJoXDsLyokam~yJrd2DaK-cUw95Qf9g__",
     title: "Сырная",
     types: [0],
     sizes: [26, 40],
@@ -23,7 +23,7 @@ export const data = [
   },
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/6652fec1-04df-49d8-8744-232f1032c44b.jpg",
+      "https://s3-alpha-sig.figma.com/img/94bc/0f13/3837f2e7162797b5233b5520d2f5ea7c?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VuzxztMSv4UJ1HPhMiepxCtUhXQf0Og~Rdx014jH2thKmE8w0Awf9rL52QFJlr2NSF5R-u83~X6seYZJHn91CwNA7K4eO5DTV5F-26ShJBbnIAUbbl~QBnkOY1vEfwsrR~EHcC3GUOfdwPKpemJ31vQ3F3FIiUZpvy37SqMZief9MR~aM6IOaIl46zePmV9WTY5UZ8cNbnbLQ0N3GP-ZvNm6HocnLVLpBT6O5~~c~mROsa0TeOYvXFrbIAKQ05S8gaYT7b95yd0-butDn0MzZB2~ro0CDVr9ougazHi7vnvj~F~SBuI5k0CiVY34IUFckdVLvUHK5grZ5L0StziAcw__",
     title: "Цыпленок барбекю",
     types: [0],
     sizes: [26, 40],
@@ -33,7 +33,7 @@ export const data = [
   },
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/af553bf5-3887-4501-b88e-8f0f55229429.jpg",
+      "https://s3-alpha-sig.figma.com/img/ca9b/e23e/3d44180b3596e4c86e6b3c3bf2fdc984?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k7JuKdR7ASmmQM-S4FU6yuybgxBkx6hZNA7f81IM47x-trqjL69aJkAjYKMnxzgGmPoH9tX79ZilfVOvIFcb3kxyxeazr97z4JEI9fKN-I0CydMXo30zBNsexx6IF~Dm8RXNPKJadeeuFHZak7hLzdMywebjLlCzULRYg9ajnb8RfqadTlJ-OtNvRFVbbBFeFZpjP6EYvD5KisJCPt1kXaLid0rL00uM~p1AX8Gs-LIMyc6D3BHZbdJ7m7GKUPBwrIZiJM5zR4xsUCw3IdLutgprErlD-Y4onylA8BmS8qGETguk9ti-g8KU1Fm12yqnF3oScr1ssDoRNx5zMR175g__",
     title: "Кисло-сладкий цыпленок",
     types: [1],
     sizes: [26, 30, 40],
@@ -43,7 +43,7 @@ export const data = [
   },
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg",
+      "https://s3-alpha-sig.figma.com/img/bcbd/4371/fe81d3a3ec638fb078b2122eed2d7420?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Wg4yzTpBcSZHf3rwdGzxOOMkpMRXuhmGBZSbz3Kun60Qci8ipjrER61TYSjT65U-ZOvA9oR7UDO84jfBW8MdgQtHJShO4BfNk9oNMkUFx8hKNIWx19TGepfuiSFOcLpvoj8osFA-Q3Ay7kbTuEVzBhEq3FRmKthCDGuX~-xXGXaxzFXrdV4t7bezeHPseThQEDN7g161axTsSAdHbfVzuEkkjaTNcNY1lZrG-ekBS~nL8KRLa-FjgEFsRG3Q5ciixdR~JbmWDdij8J75v1SVQkB2U9eHp0~mieU8q4Sg3zBJAjHs3LjdnJ6N6IVuAl-TSV0s-1jK69wWFfMcBwVfKg__",
     title: "Чизбургер-пицца",
     types: [0, 1],
     sizes: [26, 30, 40],
@@ -53,7 +53,7 @@ export const data = [
   },
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/1e1a6e80-b3ba-4a44-b6b9-beae5b1fbf27.jpg",
+      "https://s3-alpha-sig.figma.com/img/2997/9ae7/4b2dd8c255833c6c0db221da6a5b3fae?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CludioUlzY8k0Vi~YQg0Y6LNRAG-Ae4aBcaWISw889bR~W4xARPykAmH9Hj8QlwkhGmnOd5Ow6VPTr3HYW9pRtyTuKVAMvcv-7kKiMRhNBBXm~C0CBNzXHyWWMBQd7PMF8uOiiYWXCv1DkeKpUxU19K4dT2gS45xj6juqE6UQx76HK-5afkFjrcZAwDTFQ-tk46VYzyBhXjFVpw~zl0bC~pPDqmalO~ebLzTKqdAtOnBNIFWpnC7WYqO-6oibLA6SNwFj-M7-ehgNppqb7GxUVsD9bhzKPobTQmb6irN92obJIa6hRTYtH7qJoXDsLyokam~yJrd2DaK-cUw95Qf9g__",
     title: "Крэйзи пепперони",
     types: [0],
     sizes: [30, 40],
@@ -63,7 +63,7 @@ export const data = [
   },
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/d2e337e9-e07a-4199-9cc1-501cc44cb8f8.jpg",
+      "https://s3-alpha-sig.figma.com/img/94bc/0f13/3837f2e7162797b5233b5520d2f5ea7c?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VuzxztMSv4UJ1HPhMiepxCtUhXQf0Og~Rdx014jH2thKmE8w0Awf9rL52QFJlr2NSF5R-u83~X6seYZJHn91CwNA7K4eO5DTV5F-26ShJBbnIAUbbl~QBnkOY1vEfwsrR~EHcC3GUOfdwPKpemJ31vQ3F3FIiUZpvy37SqMZief9MR~aM6IOaIl46zePmV9WTY5UZ8cNbnbLQ0N3GP-ZvNm6HocnLVLpBT6O5~~c~mROsa0TeOYvXFrbIAKQ05S8gaYT7b95yd0-butDn0MzZB2~ro0CDVr9ougazHi7vnvj~F~SBuI5k0CiVY34IUFckdVLvUHK5grZ5L0StziAcw__",
     title: "Пепперони",
     types: [0, 1],
     sizes: [26, 30, 40],
@@ -73,7 +73,7 @@ export const data = [
   },
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/d48003cd-902c-420d-9f28-92d9dc5f73b4.jpg",
+      "https://s3-alpha-sig.figma.com/img/ca9b/e23e/3d44180b3596e4c86e6b3c3bf2fdc984?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k7JuKdR7ASmmQM-S4FU6yuybgxBkx6hZNA7f81IM47x-trqjL69aJkAjYKMnxzgGmPoH9tX79ZilfVOvIFcb3kxyxeazr97z4JEI9fKN-I0CydMXo30zBNsexx6IF~Dm8RXNPKJadeeuFHZak7hLzdMywebjLlCzULRYg9ajnb8RfqadTlJ-OtNvRFVbbBFeFZpjP6EYvD5KisJCPt1kXaLid0rL00uM~p1AX8Gs-LIMyc6D3BHZbdJ7m7GKUPBwrIZiJM5zR4xsUCw3IdLutgprErlD-Y4onylA8BmS8qGETguk9ti-g8KU1Fm12yqnF3oScr1ssDoRNx5zMR175g__",
     title: "Маргарита",
     types: [0, 1],
     sizes: [26, 30, 40],
@@ -83,7 +83,7 @@ export const data = [
   },
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/ec29465e-606b-4a04-a03e-da3940d37e0e.jpg",
+      "https://s3-alpha-sig.figma.com/img/bcbd/4371/fe81d3a3ec638fb078b2122eed2d7420?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Wg4yzTpBcSZHf3rwdGzxOOMkpMRXuhmGBZSbz3Kun60Qci8ipjrER61TYSjT65U-ZOvA9oR7UDO84jfBW8MdgQtHJShO4BfNk9oNMkUFx8hKNIWx19TGepfuiSFOcLpvoj8osFA-Q3Ay7kbTuEVzBhEq3FRmKthCDGuX~-xXGXaxzFXrdV4t7bezeHPseThQEDN7g161axTsSAdHbfVzuEkkjaTNcNY1lZrG-ekBS~nL8KRLa-FjgEFsRG3Q5ciixdR~JbmWDdij8J75v1SVQkB2U9eHp0~mieU8q4Sg3zBJAjHs3LjdnJ6N6IVuAl-TSV0s-1jK69wWFfMcBwVfKg__",
     title: "Четыре сезона",
     types: [0, 1],
     sizes: [26, 30, 40],
@@ -93,7 +93,7 @@ export const data = [
   },
   {
     imageUrl:
-      "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/30367198-f3bd-44ed-9314-6f717960da07.jpg",
+      "https://s3-alpha-sig.figma.com/img/2997/9ae7/4b2dd8c255833c6c0db221da6a5b3fae?Expires=1714348800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CludioUlzY8k0Vi~YQg0Y6LNRAG-Ae4aBcaWISw889bR~W4xARPykAmH9Hj8QlwkhGmnOd5Ow6VPTr3HYW9pRtyTuKVAMvcv-7kKiMRhNBBXm~C0CBNzXHyWWMBQd7PMF8uOiiYWXCv1DkeKpUxU19K4dT2gS45xj6juqE6UQx76HK-5afkFjrcZAwDTFQ-tk46VYzyBhXjFVpw~zl0bC~pPDqmalO~ebLzTKqdAtOnBNIFWpnC7WYqO-6oibLA6SNwFj-M7-ehgNppqb7GxUVsD9bhzKPobTQmb6irN92obJIa6hRTYtH7qJoXDsLyokam~yJrd2DaK-cUw95Qf9g__",
     title: "Овощи и грибы",
     types: [0, 1],
     sizes: [26, 30, 40],
