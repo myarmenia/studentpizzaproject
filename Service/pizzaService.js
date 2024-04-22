@@ -38,7 +38,7 @@ const pizzaService = {
         return pizzas.filter((pizza) => pizza.category === parseInt(filter));
       }
     }
-console.log(pizzas);
+    console.log(pizzas);
     return pizzas;
   },
 };

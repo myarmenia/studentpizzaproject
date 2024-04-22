@@ -86,23 +86,22 @@ const cartService = {
 
   deletePizza: async (id) => {
     if (id) {
+      const [pizzaItem, cartItem] = await Promise.all([
+        Cart.findById(id),
+        CartItem.find(),
+      ]);
 
-      const [pizzaItem, cartItem] = await Promise.all([Cart.findById(id), CartItem.find()])
+      if (pizzaItem) {
+        pizzaItem.subCategory.map(async (e) => {
+          await CartItem.findByIdAndDelete(e);
+        });
 
-      if(pizzaItem){
-        pizzaItem.subCategory.map(async (e)=>{
-          await CartItem.findByIdAndDelete(e)
-        })
-
-        await Cart.findByIdAndDelete(id)
+        await Cart.findByIdAndDelete(id);
 
         return { message: `Item With _ID ${id} Removed` };
-
-      }else {
+      } else {
         return { mesage: `Pizza With _ID:${id} Not Found` };
       }
-  
-      
     } else {
       return { message: ` Item Whit _ID:${id} Was Not Found ` };
     }

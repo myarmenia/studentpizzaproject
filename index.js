@@ -16,13 +16,12 @@ import swaggerUI from "swagger-ui-express";
 import { specs } from "./Utils/Swagger/Swagger.js";
 import isAuth from "./Middleware/isAuth.js";
 
-
 const app = express();
 dotenv.config();
 connection();
 
 app.use(credentials);
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -35,8 +34,8 @@ app.use(
 
 app.use("/api/seed", seedRouter);
 app.use("/api/pizzas", pizzaRouter);
-app.use("/api/cart",isAuth, cartRouter);
-app.use("/api/auth", AuthRouter)
+app.use("/api/cart", cartRouter);
+app.use("/api/auth", AuthRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`SERVER RUNING ON PORT ${process.env.PORT}`);
