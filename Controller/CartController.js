@@ -1,4 +1,6 @@
-import cartService from "../Service/CartService.js";
+import { parse } from "dotenv";
+import cartService from "../Service/cartService.js";
+
 const cartController = {
   getAll: async (req, res) => {
     try {
@@ -20,10 +22,25 @@ const cartController = {
     }
   },
 
+  checkout: async ( req,res)=>{
+    try {
+
+      const data = await cartService.checkout()
+
+      res.status(200).send(data)
+      
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ CriticalError: " Internal Server Error " });
+    }
+  },
+
   changeCount: async (req, res) => {
     try {
-      const { _id, count } = req.body;
-      const changeCount = await cartService.changeCount(_id, count);
+      const { pizzaId, itemId} = req.body;
+      const count = parseInt(req.body.count)
+
+      const changeCount = await cartService.changeCount(pizzaId, itemId,count);
       res.status(200).send(changeCount);
     } catch (error) {
       console.error(error);
@@ -33,9 +50,8 @@ const cartController = {
 
   deleteOne: async (req, res) => {
     try {
-      const { _id } = req.body;
-      console.log(_id);
-      const deleteOne = await cartService.deleteOne(_id);
+      const {pizzaId, itemId } = req.body;
+      const deleteOne = await cartService.deleteOne(pizzaId, itemId );
       res.json(deleteOne);
     } catch (error) {
       console.error(error);
@@ -45,9 +61,8 @@ const cartController = {
 
   deletePizza: async (req, res) => {
     try {
-      const { _id } = req.body;
-      console.log(_id);
-      const deletePizza = await cartService.deletePizza(_id);
+      const { pizzaId } = req.body;
+      const deletePizza = await cartService.deletePizza(pizzaId);
       res.status(201).send(deletePizza);
     } catch (error) {
       console.error(error);
@@ -57,7 +72,6 @@ const cartController = {
 
   deleteAll: async (req, res) => {
     try {
-      console.log("alll");
       const deleteAll = await cartService.deleteAll();
       res.status(201).send(deleteAll);
     } catch (error) {

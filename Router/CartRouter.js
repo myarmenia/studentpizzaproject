@@ -49,6 +49,8 @@ cartRouter.get("/", cartController.getAll);
 
 cartRouter.post("/add", cartController.addToCart);
 
+cartRouter.post("/checkout", cartController.checkout)
+
 /**
  * @swagger
  *  /api/cart/changeCount:

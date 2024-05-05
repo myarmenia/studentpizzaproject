@@ -1,45 +1,56 @@
 import Pizza from "../Model/PizzaModel.js";
 
 const pizzaService = {
-  getAll: async (sort, order, filter) => {
+  getAll: async (sort, order, filter,page,size) => {
     const pizzas = await Pizza.find();
 
-    if (sort) {
-      if (sort === "price") {
-        if (order) {
-          if (order === "asc") {
-            pizzas.sort((a, b) => a.price - b.price);
+    const skip = (page-1) * size
+    const paginatedData = pizzas.slice(skip, skip + size);
+
+
+    if(pizzas.length > 0){
+      if (sort) {
+        if (sort === "price") {
+          if (order) {
+            if (order === "asc") {
+              paginatedData.sort((a, b) => a.price - b.price);
+            }
+            if (order === "desc") {
+              paginatedData.sort((a, b) => b.price - a.price);
+            }
+          } else {
+            paginatedData.sort((a, b) => a.price - b.price);
           }
-          if (order === "desc") {
-            pizzas.sort((a, b) => b.price - a.price);
+        }
+  
+        if (sort === "alp") {
+          paginatedData.sort((a, b) => a.title.localeCompare(b.title));
+        }
+        if (sort === "rating") {
+          if (order) {
+            if (order === "asc") {
+              paginatedData.sort((a, b) => a.rating - b.rating);
+            }
+            if (order === "desc") {
+              paginatedData.sort((a, b) => b.rating - a.rating);
+            }
+          } else {
+            paginatedData.sort((a, b) => a.rating - b.rating);
           }
-        } else {
-          pizzas.sort((a, b) => a.price - b.price);
+        }
+      } else {
+        if (filter) {
+          return paginatedData.filter((pizza) => pizza.category === parseInt(filter));
         }
       }
 
-      if (sort === "alp") {
-        pizzas.sort((a, b) => a.title.localeCompare(b.title));
-      }
-      if (sort === "rating") {
-        if (order) {
-          if (order === "asc") {
-            pizzas.sort((a, b) => a.rating - b.rating);
-          }
-          if (order === "desc") {
-            pizzas.sort((a, b) => b.rating - a.rating);
-          }
-        } else {
-          pizzas.sort((a, b) => a.rating - b.rating);
-        }
-      }
-    } else {
-      if (filter) {
-        return pizzas.filter((pizza) => pizza.category === parseInt(filter));
-      }
-    }
-    console.log(pizzas);
-    return pizzas;
+      return paginatedData
+    }else{
+      return {message: "Array is Empty"}
+  }
+
+
+
   },
 };
 
