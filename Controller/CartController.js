@@ -1,5 +1,4 @@
-import { parse } from "dotenv";
-import cartService from "../Service/cartService.js";
+import cartService from "../Service/CartService.js";
 
 const cartController = {
   getAll: async (req, res) => {
@@ -22,13 +21,11 @@ const cartController = {
     }
   },
 
-  checkout: async ( req,res)=>{
+  checkout: async (req, res) => {
     try {
+      const data = await cartService.checkout();
 
-      const data = await cartService.checkout()
-
-      res.status(200).send(data)
-      
+      res.status(200).send(data);
     } catch (error) {
       console.error(error);
       res.status(500).send({ CriticalError: " Internal Server Error " });
@@ -37,10 +34,10 @@ const cartController = {
 
   changeCount: async (req, res) => {
     try {
-      const { pizzaId, itemId} = req.body;
-      const count = parseInt(req.body.count)
+      const { pizzaId, itemId } = req.body;
+      const count = parseInt(req.body.count);
 
-      const changeCount = await cartService.changeCount(pizzaId, itemId,count);
+      const changeCount = await cartService.changeCount(pizzaId, itemId, count);
       res.status(200).send(changeCount);
     } catch (error) {
       console.error(error);
@@ -50,8 +47,8 @@ const cartController = {
 
   deleteOne: async (req, res) => {
     try {
-      const {pizzaId, itemId } = req.body;
-      const deleteOne = await cartService.deleteOne(pizzaId, itemId );
+      const { pizzaId, itemId } = req.body;
+      const deleteOne = await cartService.deleteOne(pizzaId, itemId);
       res.json(deleteOne);
     } catch (error) {
       console.error(error);

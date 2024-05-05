@@ -14,7 +14,6 @@ import AuthRouter from "./Router/AuthRouter.js";
 
 import swaggerUI from "swagger-ui-express";
 import { specs } from "./Utils/Swagger/Swagger.js";
-import isAuth from "./Middleware/isAuth.js";
 
 const app = express();
 dotenv.config();

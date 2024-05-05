@@ -1,14 +1,13 @@
 import Pizza from "../Model/PizzaModel.js";
 
 const pizzaService = {
-  getAll: async (sort, order, filter,page,size) => {
+  getAll: async (sort, order, filter, page, size) => {
     const pizzas = await Pizza.find();
 
-    const skip = (page-1) * size
+    const skip = (page - 1) * size;
     const paginatedData = pizzas.slice(skip, skip + size);
 
-
-    if(pizzas.length > 0){
+    if (pizzas.length > 0) {
       if (sort) {
         if (sort === "price") {
           if (order) {
@@ -22,7 +21,7 @@ const pizzaService = {
             paginatedData.sort((a, b) => a.price - b.price);
           }
         }
-  
+
         if (sort === "alp") {
           paginatedData.sort((a, b) => a.title.localeCompare(b.title));
         }
@@ -40,17 +39,16 @@ const pizzaService = {
         }
       } else {
         if (filter) {
-          return paginatedData.filter((pizza) => pizza.category === parseInt(filter));
+          return paginatedData.filter(
+            (pizza) => pizza.category === parseInt(filter)
+          );
         }
       }
 
-      return paginatedData
-    }else{
-      return {message: "Array is Empty"}
-  }
-
-
-
+      return paginatedData;
+    } else {
+      return { message: "Array is Empty" };
+    }
   },
 };
 

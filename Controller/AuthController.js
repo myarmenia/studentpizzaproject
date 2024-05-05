@@ -43,6 +43,7 @@ const AuthController = {
       res.status(500).send({ message: "Internal Server Error" });
     }
   },
+
   signOut: async (req, res) => {
     try {
       const { refresh_token } = req.body;

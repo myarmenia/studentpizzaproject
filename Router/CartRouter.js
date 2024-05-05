@@ -49,7 +49,7 @@ cartRouter.get("/", cartController.getAll);
 
 cartRouter.post("/add", cartController.addToCart);
 
-cartRouter.post("/checkout", cartController.checkout)
+cartRouter.post("/checkout", cartController.checkout);
 
 /**
  * @swagger
