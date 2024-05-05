@@ -99,14 +99,17 @@ const cartService = {
   changeCount: async (pizzaId, itemId, count,) => {
     const [cartItem, cart , pizza] = await Promise.all([CartItem.findOne({pizzaID: pizzaId}), Cart.findOne({pizzaId}), Pizza.findById(pizzaId)])
 
+
     cartItem.subCategories.map(async (el)=>{
       if(String(el._id) == itemId.toString()){
-        console.log(String(el._id)," ==" ,itemId.toString());
-        el.count = el.count  + count
-        cart.totalCount = cart.totalCount + count
-        cart.totalPrice = cart.totalPrice  + (count * pizza.price)
+        const elOldCount = el.count
+        const elOldPrice = el.count * pizza.price
+        el.count = count
+        cart.totalCount = cart.totalCount - elOldCount + count
+        cart.totalPrice = cart.totalPrice - elOldPrice  + (count * pizza.price)
         cart.subCategory = cartItem.subCategories
       }
+   
     })
     await Promise.all([cartItem.save(), cart.save()])
   },

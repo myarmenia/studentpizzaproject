@@ -49,6 +49,27 @@ cartRouter.get("/", cartController.getAll);
 
 cartRouter.post("/add", cartController.addToCart);
 
+
+/**
+ * @swagger
+ *  /api/cart/checkout:
+ *    post:
+ *      summary: Checkout All Cart Items
+ *      tags: [Cart]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *      responses:
+ *        201:
+ *          description: Bought
+ *          contents:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/Cart"
+ */
 cartRouter.post("/checkout", cartController.checkout);
 
 /**

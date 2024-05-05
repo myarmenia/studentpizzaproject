@@ -20,43 +20,47 @@ export const options = {
         AddToCart: {
           type: "object",
           properties: {
-            pizzaId: { type: "string", description: "Company ID" },
-            type: { type: ["string"], description: "Teacher ID" },
-            size: { type: ["string"], description: "Teacher ID" },
+            pizzaId: { type: "string", description: "Pizza ID" },
+            type: { type: "string", description: "Pizza Type Number" },
+            size: { type: "string", description: "Pizza Size" },
           },
           example: {
             pizzaId: "65b358b558bb92966f212454",
-            type: [0],
-            size: [26],
+            type: "0",
+            size: "26",
           },
         },
         ChangeCount: {
           type: "object",
           properties: {
-            _id: { type: "string", description: "Cart Item _id" },
+            pizzaId: { type: "string", description: "Pizza _id" },
+            itemId: { type: "string", description: " _id of The Element Which Count Will be Changed" },
             count: { type: "number", description: "count" },
           },
           example: {
-            _id: "65b3a5d058bb92966f212469",
+            pizzaId: "65b3a5d058bb92966f212469",
+            itemId : "66377b908034eaec7b5aa2be",
             count: 3,
           },
         },
         DeleteOne: {
           type: "object",
           properties: {
-            _id: { type: "string", description: "Cart Item _id" },
+            pizzaId: { type: "string", description: "Pizza _id" },
+            itemId: { type: "string", description: " _id of The Element Which You Want to Delete" },
           },
           example: {
-            _id: "65b3a5d058bb92966f212469",
+            pizzaId: "65b3a5d058bb92966f212469",
+            itemId : "66377b908034eaec7b5aa2be",
           },
         },
         DeletePizza: {
           type: "object",
           properties: {
-            _id: { type: "string", description: "Cart Item _id" },
+            pizzaId: { type: "string", description: "Cart Item _id" },
           },
           example: {
-            _id: "65b3a5d058bb92966f212469",
+            pizzaId: "65b3a5d058bb92966f212469",
           },
         },
       },
@@ -104,18 +108,12 @@ export const options = {
                 type: "object",
                 properties: {
                   type: {
-                    type: "array",
-                    items: {
                       type: "number",
                       enum: [0, 1],
-                    },
                   },
                   size: {
-                    type: "array",
-                    items: {
                       type: "number",
-                      enum: [0, 1],
-                    },
+                      enum: [26, 30, 40],
                   },
                   count: {
                     type: "number",

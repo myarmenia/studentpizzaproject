@@ -5,8 +5,8 @@ const pizzaController = {
     try {
       const { sort, order, filter } = req.query;
 
-      const page = parseInt(req.query.page) || 1;
-      const size = parseInt(req.query.size) || 10;
+      const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
+      const size = parseInt(req.query.size) ? parseInt(req.query.size) : 4;
 
       const pizzas = await pizzaService.getAll(sort, order, filter, page, size);
 
@@ -14,6 +14,31 @@ const pizzaController = {
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error");
+    }
+  },
+  searchPizza: async (req, res) => {
+    try {
+        const value = req.query.value
+
+        const data = await pizzaService.searchData(value)
+
+        res.status(200).send(data)
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ message: "Interal Server Error" })
+    }
+  },
+  getByID: async (req, res) => {
+    try {
+        const id = req.params.id
+
+        const data = await pizzaService.getByID(id)
+
+        res.status(200).send(data)
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).send({ message: "Interal Server Error" })
     }
   },
 };
