@@ -55,29 +55,6 @@ pizzaRouter.get("/", pizzaController.getAll);
 
 /**
  * @swagger
- *  /api/pizzas/search:
- *   get:
- *      summary: Return Searched Pizzas
- *      tags: [Pizza]
- *      parameters:
- *        - in: query
- *          name: value
- *          schema:
- *            type: string
- *            description: Pizzas Searched By Title
- *      responses:
- *        200:
- *          description: Success
- *          contents:
- *            application/json:
- *              schema:
- *                $ref: "#/components/schemas/Pizza"
- */
-
-pizzaRouter.get("/search", pizzaController.searchPizza);
-
-/**
- * @swagger
  *  /api/pizzas/{id}:
  *   get:
  *      summary: Return Pizzas By ID

@@ -14,6 +14,7 @@ export const options = {
     servers: [
       { url: "http://pizza.trigger.ltd" },
       { url: "http://195.181.242.194" },
+      { url: "http://localhost:4000" },
     ],
     components: {
       request: {
