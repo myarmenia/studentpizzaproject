@@ -13,12 +13,12 @@ const pizzaService = {
 
     if (pizzas.length > 0) {
       if (search) {
-        const searchByTitle = pizzas.filter((el) =>
+        data.pizzas = pizzas.filter((el) =>
           el.title.toLowerCase().includes(search.toLowerCase())
         );
 
-        if (searchByTitle.length) {
-          return searchByTitle;
+        if (data.pizzas.length) {
+          return data;
         } else {
           return { message: "No Pizza With This Tilte" };
         }
@@ -54,9 +54,11 @@ const pizzaService = {
           }
         } else {
           if (filter) {
-            return data.pizzas.filter(
+            data.pizzas = data.pizzas.filter(
               (pizza) => pizza.category === parseInt(filter)
             );
+
+            return data;
           }
         }
 
