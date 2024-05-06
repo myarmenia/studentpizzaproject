@@ -41,7 +41,7 @@ const pizzaRouter = Router();
  *          name: size
  *          schema:
  *            type: number
- *          description: Size of Pizzas  
+ *          description: Size of Pizzas
  *      responses:
  *        200:
  *          description: Success
@@ -53,7 +53,6 @@ const pizzaRouter = Router();
 
 pizzaRouter.get("/", pizzaController.getAll);
 
-
 /**
  * @swagger
  *  /api/pizzas/search:
@@ -63,7 +62,7 @@ pizzaRouter.get("/", pizzaController.getAll);
  *      parameters:
  *        - in: query
  *          name: value
- *          schema: 
+ *          schema:
  *            type: string
  *            description: Pizzas Searched By Title
  *      responses:
@@ -75,7 +74,7 @@ pizzaRouter.get("/", pizzaController.getAll);
  *                $ref: "#/components/schemas/Pizza"
  */
 
-pizzaRouter.get("/search", pizzaController.searchPizza)
+pizzaRouter.get("/search", pizzaController.searchPizza);
 
 /**
  * @swagger
@@ -88,7 +87,7 @@ pizzaRouter.get("/search", pizzaController.searchPizza)
  *          in: path
  *          description: Get Pizza by ID
  *          required: true
- *          schema: 
+ *          schema:
  *            type: string
  *            format: id
  *      responses:
@@ -99,6 +98,6 @@ pizzaRouter.get("/search", pizzaController.searchPizza)
  *                      schema:
  *                        $ref: "#/components/schemas/Pizza"
  */
-pizzaRouter.get("/:id", pizzaController.getByID)
+pizzaRouter.get("/:id", pizzaController.getByID);
 
 export default pizzaRouter;

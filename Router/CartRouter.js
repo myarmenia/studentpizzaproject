@@ -49,7 +49,6 @@ cartRouter.get("/", cartController.getAll);
 
 cartRouter.post("/add", cartController.addToCart);
 
-
 /**
  * @swagger
  *  /api/cart/checkout:

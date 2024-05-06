@@ -34,12 +34,15 @@ export const options = {
           type: "object",
           properties: {
             pizzaId: { type: "string", description: "Pizza _id" },
-            itemId: { type: "string", description: " _id of The Element Which Count Will be Changed" },
+            itemId: {
+              type: "string",
+              description: " _id of The Element Which Count Will be Changed",
+            },
             count: { type: "number", description: "count" },
           },
           example: {
             pizzaId: "65b3a5d058bb92966f212469",
-            itemId : "66377b908034eaec7b5aa2be",
+            itemId: "66377b908034eaec7b5aa2be",
             count: 3,
           },
         },
@@ -47,11 +50,14 @@ export const options = {
           type: "object",
           properties: {
             pizzaId: { type: "string", description: "Pizza _id" },
-            itemId: { type: "string", description: " _id of The Element Which You Want to Delete" },
+            itemId: {
+              type: "string",
+              description: " _id of The Element Which You Want to Delete",
+            },
           },
           example: {
             pizzaId: "65b3a5d058bb92966f212469",
-            itemId : "66377b908034eaec7b5aa2be",
+            itemId: "66377b908034eaec7b5aa2be",
           },
         },
         DeletePizza: {
@@ -108,12 +114,12 @@ export const options = {
                 type: "object",
                 properties: {
                   type: {
-                      type: "number",
-                      enum: [0, 1],
+                    type: "number",
+                    enum: [0, 1],
                   },
                   size: {
-                      type: "number",
-                      enum: [26, 30, 40],
+                    type: "number",
+                    enum: [26, 30, 40],
                   },
                   count: {
                     type: "number",

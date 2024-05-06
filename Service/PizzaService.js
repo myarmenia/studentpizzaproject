@@ -56,31 +56,28 @@ const pizzaService = {
     let data = await Pizza.find();
 
     if (value) {
-        const searchByTitle = data.filter((el) =>
-          el.title.toLowerCase().includes(value.toLowerCase())
-        )
-        if (searchByTitle.length) {
-          data = searchByTitle
+      const searchByTitle = data.filter((el) =>
+        el.title.toLowerCase().includes(value.toLowerCase())
+      );
+      if (searchByTitle.length) {
+        data = searchByTitle;
 
-          return data
-        } else {
-          return { message: "No Pizza With This Tilte" }
-        }
+        return data;
+      } else {
+        return { message: "No Pizza With This Tilte" };
+      }
     } else {
       const paginatedData = data.slice(0, 4);
-      return paginatedData
+      return paginatedData;
     }
-
-
   },
   getByID: async (id) => {
-    const data = await Pizza.findById(id)
-    if(data){
-      return data
-    }else{
-      return {message:"Something Went Wrong Please Check Pizza ID"}
+    const data = await Pizza.findById(id);
+    if (data) {
+      return data;
+    } else {
+      return { message: "Something Went Wrong Please Check Pizza ID" };
     }
-
   },
 };
 

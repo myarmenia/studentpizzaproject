@@ -18,27 +18,26 @@ const pizzaController = {
   },
   searchPizza: async (req, res) => {
     try {
-        const value = req.query.value
+      const value = req.query.value;
 
-        const data = await pizzaService.searchData(value)
+      const data = await pizzaService.searchData(value);
 
-        res.status(200).send(data)
+      res.status(200).send(data);
     } catch (error) {
-        console.error(error)
-        res.status(500).send({ message: "Interal Server Error" })
+      console.error(error);
+      res.status(500).send({ message: "Interal Server Error" });
     }
   },
   getByID: async (req, res) => {
     try {
-        const id = req.params.id
+      const id = req.params.id;
 
-        const data = await pizzaService.getByID(id)
+      const data = await pizzaService.getByID(id);
 
-        res.status(200).send(data)
-
+      res.status(200).send(data);
     } catch (error) {
-        console.error(error)
-        res.status(500).send({ message: "Interal Server Error" })
+      console.error(error);
+      res.status(500).send({ message: "Interal Server Error" });
     }
   },
 };
