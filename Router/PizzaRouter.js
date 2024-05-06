@@ -42,6 +42,11 @@ const pizzaRouter = Router();
  *          schema:
  *            type: number
  *          description: Size of Pizzas
+ *        - in: query
+ *          name: search
+ *          schema:
+ *            type: string
+ *          description: Search by Title of Pizzas
  *      responses:
  *        200:
  *          description: Success
