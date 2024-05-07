@@ -4,7 +4,7 @@ import CartItem from "../Model/CarItemModel.js";
 
 const cartService = {
   getAll: async () => {
-    const cart = await Cart.find().populate(["pizzaId"])
+    const cart = await Cart.find().populate(["pizzaId"]);
 
     if (cart) {
       if (cart.length !== 0) {
@@ -31,74 +31,68 @@ const cartService = {
       if (type && size) {
         if (!cart) {
           const newCartItem = new CartItem({
-            pizzaID: pizzaId,
-            subCategories: [
-              {
-                type,
-                size,
-              },
-            ],
+            pizzaID: pizza._id,
+            type,
+            size,
           });
           const newCart = new Cart({
-            pizzaId,
+            pizzaId: pizza._id,
             totalPrice: pizza.price,
-            subCategory: newCartItem._id,
+            subCategories: [newCartItem._id],
           });
 
-          const cart = await Cart.find()
           await Promise.all([newCart.save(), newCartItem.save()]);
-
-          return newCart.populate({ path: "subCategory", select: "subCategories -_id" })
         } else {
-          const isCartItem = await CartItem.findOne({ pizzaID: pizzaId });
-
-          const itemExist = isCartItem.subCategories.filter(
+          const isCartItem = await CartItem.find({ pizzaID: pizzaId });
+          const ifCriteriasExist = isCartItem.find(
             (el) => el.type === parseInt(type) && el.size === parseInt(size)
           );
 
-          if (!itemExist.length) {
-            isCartItem.subCategories.push({
+          if (ifCriteriasExist) {
+            ifCriteriasExist.count = ifCriteriasExist.count + 1;
+
+            cart.totalPrice = isCartItem.reduce((acc, item) => {
+              console.log("if exists acc => ", acc);
+              console.log("if exists item => ", item);
+              return acc + item.count * pizza.price;
+            }, 0);
+
+            await Promise.all([ifCriteriasExist.save(), cart.save()]);
+          } else {
+            const newCartItem = new CartItem({
+              pizzaID: pizza._id,
               type,
               size,
             });
 
-            cart.totalCount = cart.totalCount + 1;
-            cart.totalPrice = cart.totalPrice + pizza.price;
-            cart.subCategory = isCartItem._id
+            cart.subCategories.push(newCartItem._id);
 
-            await Promise.all([isCartItem.save(), cart.save()]);
+            cart.totalCount = cart.subCategories.length;
 
-            return cart.populate({ path: "subCategory", select: "subCategories -_id" })
-          } else {
-            isCartItem.subCategories.map((el) => {
-              if (el.type === parseInt(type) && el.size === parseInt(size)) {
-                el.count = el.count + 1;
-              }
-            });
+            cart.totalPrice = isCartItem.reduce((acc, item) => {
+              console.log("if new acc => ", acc);
+              console.log("if new item => ", item);
+              return acc + (newCartItem.count + item.count) * pizza.price;
+            }, 0);
 
-            cart.totalCount = cart.totalCount + 1;
-            cart.totalPrice = cart.totalPrice + pizza.price;
-            cart.subCategory = isCartItem._id
-
-            await Promise.all([isCartItem.save(), cart.save()]);
-
-            return cart.populate({ path: "subCategory", select: "subCategories -_id" })
+            await Promise.all([cart.save(), newCartItem.save()]);
           }
         }
+        return { message: "Пицца добавлена ​​в корзину" };
       } else {
         return { message: "You Must Send Type and Size" };
       }
     } else {
-      return { message: `Pizza With ID ${pizzaId} Not Found` };
+      return {
+        message: `Пицца с ID ${pizzaId} не найдена или ID не совпадает`,
+      };
     }
   },
 
   checkout: async () => {
-    const [deleteAllCart, deleteAllCartItem] = await Promise.all([
-      Cart.deleteMany({}),
-      CartItem.deleteMany({}),
-    ]);
-    return { message: "All Pizzas Were Bought" };
+    await Promise.all([Cart.deleteMany({}), CartItem.deleteMany({})]);
+
+    return { message: "Ваша покупка удалась" };
   },
 
   changeCount: async (pizzaId, itemId, count) => {
@@ -113,16 +107,15 @@ const cartService = {
         el.count = count;
       }
     });
-    cart.subCategory = cartItem._id;
-    cart.totalCount = cartItem.subCategories.reduce((a,b)=>{
-      return a + b.count
-    },0)
-    cart.totalPrice = cart.totalCount * pizza.price
-
+    cart.subCategories = cartItem._id;
+    cart.totalCount = cartItem.subCategories.reduce((a, b) => {
+      return a + b.count;
+    }, 0);
+    cart.totalPrice = cart.totalCount * pizza.price;
 
     await Promise.all([cartItem.save(), cart.save()]);
 
-    return {count}
+    return { count };
   },
 
   deleteOne: async (pizzaId, itemId) => {
@@ -139,7 +132,7 @@ const cartService = {
       cartItem.subCategories = cartItem.subCategories.filter(
         (el) => el._id.toString() !== itemId
       );
-      cart.subCategory = cartItem.subCategories;
+      cart.subCategories = cartItem.subCategories;
       cart.totalCount = cart.totalCount - itemExist.count;
       cart.totalPrice = cart.totalPrice - itemExist.count * pizza.price;
 
@@ -154,9 +147,9 @@ const cartService = {
     if (pizzaId) {
       const [cart, cartItem] = await Promise.all([
         Cart.findOneAndDelete({ pizzaId }),
-        CartItem.findOneAndDelete({ pizzaID: pizzaId }),
+        CartItem.deleteMany({ pizzaID: pizzaId }),
       ]);
-
+      console.log(cart, cartItem);
       if (cart && cartItem) {
         return { message: `Item With _ID ${pizzaId} Removed` };
       } else {
@@ -168,11 +161,9 @@ const cartService = {
   },
 
   deleteAll: async () => {
-    const [deleteAllCart, deleteAllCartItem] = await Promise.all([
-      Cart.deleteMany({}),
-      CartItem.deleteMany({}),
-    ]);
-    return { message: "Cart Has Been Cleared" };
+    await Promise.all([Cart.deleteMany({}), CartItem.deleteMany({})]);
+
+    return { message: "Корзина очищена" };
   },
 };
 export default cartService;

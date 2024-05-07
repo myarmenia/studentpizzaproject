@@ -109,7 +109,7 @@ export const options = {
               description:
                 "_id of the Pizza you want to add to the cart, required",
             },
-            subCategory: {
+            subCategories: {
               type: "array",
               items: {
                 type: "object",

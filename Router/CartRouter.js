@@ -98,7 +98,7 @@ cartRouter.put("/changeCount", cartController.changeCount);
  * @swagger
  *  /api/cart/deleteOne:
  *    delete:
- *      summary: Delete item from subCategory
+ *      summary: Delete item from subCategories
  *      tags: [Cart]
  *      requestBody:
  *        required: true

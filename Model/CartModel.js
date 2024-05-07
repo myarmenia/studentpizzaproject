@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const cartSchema = new mongoose.Schema(
   {
     pizzaId: {
@@ -8,12 +7,7 @@ const cartSchema = new mongoose.Schema(
       ref: "Pizza",
       required: true,
     },
-    subCategory: 
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "CartItem",
-      },
-    
+    subCategories: [{ type: mongoose.Schema.Types.ObjectId, ref: "CartItem" }],
     totalPrice: {
       type: Number,
       required: true,
@@ -27,16 +21,16 @@ const cartSchema = new mongoose.Schema(
 
 cartSchema.pre("findOne", function (next) {
   this.populate({
-    path: "subCategory",
-    select: { "subCategories": 1, "_id": 0 } 
+    path: "subCategories",
+    select: { type: 1, size: 1, count: 1, _id: 1 },
   });
   next();
 });
 
 cartSchema.pre("find", function (next) {
   this.populate({
-    path: "subCategory",
-    select: { "subCategories": 1, "_id": 0 } 
+    path: "subCategories",
+    select: { type: 1, size: 1, count: 1, _id: 1 },
   });
   next();
 });

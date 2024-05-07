@@ -7,13 +7,9 @@ const cartItemSchema = new mongoose.Schema(
       ref: "Pizza",
       required: true,
     },
-    subCategories: [
-      {
-        type: { type: Number },
-        size: { type: Number },
-        count: { type: Number, default: 1 },
-      },
-    ],
+    type: { type: Number },
+    size: { type: Number },
+    count: { type: Number, default: 1 },
   },
   { timestamps: true }
 );
