@@ -110,15 +110,19 @@ const cartService = {
 
     cartItem.subCategories.map(async (el) => {
       if (String(el._id) == itemId.toString()) {
-        const elOldCount = el.count;
-        const elOldPrice = el.count * pizza.price;
         el.count = count;
-        cart.totalCount = cart.totalCount - elOldCount + count;
-        cart.totalPrice = cart.totalPrice - elOldPrice + count * pizza.price;
-        cart.subCategory = cartItem.subCategories;
       }
     });
+    cart.subCategory = cartItem._id;
+    cart.totalCount = cartItem.subCategories.reduce((a,b)=>{
+      return a + b.count
+    },0)
+    cart.totalPrice = cart.totalCount * pizza.price
+
+
     await Promise.all([cartItem.save(), cart.save()]);
+
+    return {count}
   },
 
   deleteOne: async (pizzaId, itemId) => {
