@@ -4,7 +4,7 @@ import CartItem from "../Model/CarItemModel.js";
 
 const cartService = {
   getAll: async () => {
-    const cart = await Cart.find().populate(["pizzaId"]);
+    const cart = await Cart.find().populate(["pizzaId"])
 
     if (cart) {
       if (cart.length !== 0) {
@@ -42,10 +42,13 @@ const cartService = {
           const newCart = new Cart({
             pizzaId,
             totalPrice: pizza.price,
-            subCategory: newCartItem.subCategories,
+            subCategory: newCartItem._id,
           });
 
+          const cart = await Cart.find()
           await Promise.all([newCart.save(), newCartItem.save()]);
+
+          return newCart.populate({ path: "subCategory", select: "subCategories -_id" })
         } else {
           const isCartItem = await CartItem.findOne({ pizzaID: pizzaId });
 
@@ -61,9 +64,11 @@ const cartService = {
 
             cart.totalCount = cart.totalCount + 1;
             cart.totalPrice = cart.totalPrice + pizza.price;
-            cart.subCategory = isCartItem.subCategories;
+            cart.subCategory = isCartItem._id
 
             await Promise.all([isCartItem.save(), cart.save()]);
+
+            return cart.populate({ path: "subCategory", select: "subCategories -_id" })
           } else {
             isCartItem.subCategories.map((el) => {
               if (el.type === parseInt(type) && el.size === parseInt(size)) {
@@ -73,9 +78,11 @@ const cartService = {
 
             cart.totalCount = cart.totalCount + 1;
             cart.totalPrice = cart.totalPrice + pizza.price;
-            cart.subCategory = isCartItem.subCategories;
+            cart.subCategory = isCartItem._id
 
             await Promise.all([isCartItem.save(), cart.save()]);
+
+            return cart.populate({ path: "subCategory", select: "subCategories -_id" })
           }
         }
       } else {
