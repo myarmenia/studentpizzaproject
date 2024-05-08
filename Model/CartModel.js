@@ -23,7 +23,7 @@ cartSchema.pre("findOne", function (next) {
   this.populate({
     path: "subCategories",
     select: { type: 1, size: 1, count: 1, _id: 1 },
-  });
+  }).populate("pizzaId");
   next();
 });
 
@@ -31,7 +31,7 @@ cartSchema.pre("find", function (next) {
   this.populate({
     path: "subCategories",
     select: { type: 1, size: 1, count: 1, _id: 1 },
-  });
+  }).populate("pizzaId");
   next();
 });
 

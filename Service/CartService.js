@@ -1,10 +1,11 @@
 import Cart from "../Model/CartModel.js";
 import Pizza from "../Model/PizzaModel.js";
 import CartItem from "../Model/CarItemModel.js";
+import { Types } from "mongoose";
 
 const cartService = {
   getAll: async () => {
-    const cart = await Cart.find().populate(["pizzaId"]);
+    const cart = await Cart.find();
 
     if (cart) {
       if (cart.length !== 0) {
@@ -22,6 +23,13 @@ const cartService = {
   },
 
   addToCart: async (pizzaId, type, size) => {
+    if (!pizzaId || !type || !size) return { mesage: `Поля не предоставлены` };
+
+    if (!Types.ObjectId.isValid(pizzaId))
+      return {
+        mesage: `Предоставленный ID не соответствует правильному синтаксису ID.`,
+      };
+
     const [pizza, cart] = await Promise.all([
       Pizza.findById(pizzaId),
       Cart.findOne({ pizzaId: pizzaId }),
@@ -52,8 +60,6 @@ const cartService = {
             ifCriteriasExist.count = ifCriteriasExist.count + 1;
 
             cart.totalPrice = isCartItem.reduce((acc, item) => {
-              console.log("if exists acc => ", acc);
-              console.log("if exists item => ", item);
               return acc + item.count * pizza.price;
             }, 0);
 
@@ -70,8 +76,6 @@ const cartService = {
             cart.totalCount = cart.subCategories.length;
 
             cart.totalPrice = isCartItem.reduce((acc, item) => {
-              console.log("if new acc => ", acc);
-              console.log("if new item => ", item);
               return acc + (newCartItem.count + item.count) * pizza.price;
             }, 0);
 
@@ -80,7 +84,7 @@ const cartService = {
         }
         return { message: "Пицца добавлена ​​в корзину" };
       } else {
-        return { message: "You Must Send Type and Size" };
+        return { mesage: `Поля pizzaId или type или size не предоставлены` };
       }
     } else {
       return {
@@ -95,68 +99,105 @@ const cartService = {
     return { message: "Ваша покупка удалась" };
   },
 
-  changeCount: async (pizzaId, itemId, count) => {
-    const [cartItem, cart, pizza] = await Promise.all([
-      CartItem.findOne({ pizzaID: pizzaId }),
-      Cart.findOne({ pizzaId }),
-      Pizza.findById(pizzaId),
+  changeCount: async (itemId, count) => {
+    if (!itemId || !count) return { mesage: `Поля не предоставлены` };
+
+    if (!Types.ObjectId.isValid(itemId))
+      return {
+        mesage: `Предоставленный ID не соответствует правильному синтаксису ID.`,
+      };
+
+    const [cartItem, cart] = await Promise.all([
+      CartItem.findById(itemId),
+      Cart.findOne({ subCategories: itemId }),
     ]);
 
-    cartItem.subCategories.map(async (el) => {
-      if (String(el._id) == itemId.toString()) {
-        el.count = count;
+    if (!cartItem || !cart)
+      return {
+        mesage: `Неверный ID. Убедитесь, что предоставленный ID действителен.`,
+      };
+
+    cartItem.count = count;
+
+    const updatedSubCategories = cart.subCategories.map((item, i) => {
+      if (item._id.toString() === itemId) {
+        item.count = count;
+        return item;
       }
+      return item;
     });
-    cart.subCategories = cartItem._id;
-    cart.totalCount = cartItem.subCategories.reduce((a, b) => {
-      return a + b.count;
+
+    cart.totalPrice = updatedSubCategories.reduce((acc, item) => {
+      return acc + item.count * cart.pizzaId.price;
     }, 0);
-    cart.totalPrice = cart.totalCount * pizza.price;
 
     await Promise.all([cartItem.save(), cart.save()]);
 
     return { count };
   },
 
-  deleteOne: async (pizzaId, itemId) => {
-    if (pizzaId && itemId) {
-      const [cart, cartItem, pizza] = await Promise.all([
-        Cart.findOne({ pizzaId }).populate(["pizzaId"]),
-        CartItem.findOne({ pizzaID: pizzaId }),
-        Pizza.findById(pizzaId),
-      ]);
+  deleteOne: async (itemId) => {
+    if (!itemId)
+      return {
+        mesage: `Поле не предоставлено.`,
+      };
 
-      const itemExist = cartItem.subCategories.find(
-        (el) => el._id.toString() === itemId
-      );
-      cartItem.subCategories = cartItem.subCategories.filter(
-        (el) => el._id.toString() !== itemId
-      );
-      cart.subCategories = cartItem.subCategories;
-      cart.totalCount = cart.totalCount - itemExist.count;
-      cart.totalPrice = cart.totalPrice - itemExist.count * pizza.price;
+    if (!Types.ObjectId.isValid(itemId))
+      return {
+        mesage: `Предоставленный ID не соответствует правильному синтаксису ID.`,
+      };
 
-      await Promise.all([cart.save(), cartItem.save()]);
-      return { Message: `Item Has Been Deleted` };
-    } else {
-      return { Message: `Something Went Wrong ` };
-    }
+    const cart = await Cart.findOne({ subCategories: itemId });
+
+    if (!cart)
+      return {
+        mesage: `Неверный ID. Убедитесь, что предоставленный ID действителен.`,
+      };
+
+    const updatedSubCategories = cart.subCategories.filter(
+      (item) => item._id.toString() !== itemId
+    );
+
+    cart.subCategories = updatedSubCategories;
+    cart.totalCount = cart.subCategories.length;
+
+    cart.totalPrice = cart.subCategories.reduce((acc, item) => {
+      return acc + item.count * cart.pizzaId.price;
+    }, 0);
+
+    await Promise.all([cart.save(), CartItem.deleteOne({ _id: itemId })]);
+
+    return { message: `Элемент был удален` };
   },
 
   deletePizza: async (pizzaId) => {
-    if (pizzaId) {
-      const [cart, cartItem] = await Promise.all([
-        Cart.findOneAndDelete({ pizzaId }),
-        CartItem.deleteMany({ pizzaID: pizzaId }),
-      ]);
-      console.log(cart, cartItem);
-      if (cart && cartItem) {
-        return { message: `Item With _ID ${pizzaId} Removed` };
-      } else {
-        return { mesage: `Pizza With _ID: ${pizzaId} Not Found` };
-      }
-    } else {
-      return { message: ` Item Whit _ID: ${pizzaId} Was Not Found ` };
+    if (!pizzaId)
+      return {
+        mesage: `Поле не предоставлено.`,
+      };
+
+    if (!Types.ObjectId.isValid(pizzaId))
+      return {
+        mesage: `Предоставленный ID не соответствует правильному синтаксису ID.`,
+      };
+
+    const [cart, cartItem] = await Promise.all([
+      Cart.deleteOne({ pizzaId }),
+      CartItem.deleteMany({ pizzaID: pizzaId }),
+    ]);
+
+    if (!cartItem || !cart)
+      return {
+        mesage: `Неверный ID. Убедитесь, что предоставленный ID действителен.`,
+      };
+
+    if (
+      cart.acknowledged &&
+      cart.deletedCount > 0 &&
+      cartItem.acknowledged &&
+      cartItem.deletedCount > 0
+    ) {
+      return { message: `Пицца с ID ${pizzaId} удалена` };
     }
   },
 
