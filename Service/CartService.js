@@ -133,7 +133,7 @@ const cartService = {
 
     await Promise.all([cartItem.save(), cart.save()]);
 
-    return { count };
+    return { itemId: cartItem._id, count };
   },
 
   deleteOne: async (itemId) => {
