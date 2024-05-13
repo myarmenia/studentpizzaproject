@@ -15,6 +15,7 @@ const cartController = {
     try {
       const { pizzaId, type, size } = req.body;
 
+      console.log("req.body =>", req.body);
       const addToCart = await cartService.addToCart(pizzaId, type, size);
 
       res.status(201).send(addToCart);
