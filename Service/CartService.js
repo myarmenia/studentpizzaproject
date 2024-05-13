@@ -25,7 +25,7 @@ const cartService = {
   addToCart: async (pizzaId, type, size) => {
     console.log("req.body service =>", pizzaId, type, size);
     if (!pizzaId || !type || !size) return { mesage: `Поля не предоставлены` };
-
+    console.log("aaaa");
     if (!Types.ObjectId.isValid(pizzaId))
       return {
         mesage: `Предоставленный ID не соответствует правильному синтаксису ID.`,
